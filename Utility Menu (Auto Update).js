@@ -1,1 +1,1 @@
-javascript:(function(){(function(){fetch("https://raw.githubusercontent.com/JackTheGamer385/Utility-Menu/refs/heads/main/Utility%20Menu.js").then((e=>e.text())).then((code=>eval(code)))})();}());
+javascript:(function(){(function(){(function(){fetch("https://raw.githubusercontent.com/JackTheGamer385/Utility-Menu/refs/heads/main/Utility%20Menu.js").then((function(t){return t.text()})).then((function(Code){eval(Code)}))})()})();}());

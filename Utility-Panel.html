@@ -202,18 +202,23 @@ const VersionString = "v1.0";
 VersionSpan.innerText = VersionString;
 HomeVersionSpan.innerText = VersionString;
 
-const CodeUrl = "https://raw.githubusercontent.com/JackTheGamer385/Utility-Menu/refs/heads/main/Utility%20Menu.js";
+// Update this URL to your raw script link
+const CodeUrl = "https://raw.githubusercontent.com/JackTheGamer385/Utility-Menu/refs/heads/main/Utility-Menu.js";
 
+// Placeholder for your code snippet
 const CodeSnippet = `// Example code line 1
 // Example code line 2
 // Example code line 3
 ...`;
 
+// Function to extract features array from code text
 function ExtractFeaturesFromCode(CodeText) {
-  const Match = CodeText.match(/const\s+features\s*=\s*(\[[\s\S]*?\]);/);
-  if (Match && Match[1]) {
+  // Use regex to find the 'const features = [...]' declaration
+  const match = CodeText.match(/const\s+features\s*=\s*(\[[\s\S]*?\]);/);
+  if (match && match[1]) {
     try {
-      return eval(Match[1]);
+      // Evaluate the array string safely
+      return eval(match[1]);
     } catch {
       return null;
     }
@@ -221,6 +226,7 @@ function ExtractFeaturesFromCode(CodeText) {
   return null;
 }
 
+// Fetch and populate features list
 function FetchAndPopulateFeatures() {
   fetch(CodeUrl)
     .then(Response => Response.text())
@@ -234,20 +240,18 @@ function FetchAndPopulateFeatures() {
           FeaturesList.appendChild(ListItem);
         });
       } else {
-        FeaturesList.innerHTML = '';
+        FeaturesList.innerHTML = '<li>No features found</li>';
       }
     })
-    .catch(() => { FeaturesList.innerHTML = ''; });
+    .catch(() => { FeaturesList.innerHTML = '<li>Error loading features</li>'; });
 }
 
-function FetchCode() {
-  return fetch(CodeUrl).then(Response => Response.ok ? Response.text() : Promise.reject()).catch(() => 'Error loading code');
-}
-
+// Load code preview (can be replaced with actual code fetch)
 function LoadCodePreview() {
   document.getElementById('CodePreview').innerText = CodeSnippet;
 }
 
+// Show popup message
 function ShowPopup(Message, Duration = 2000) {
   const ExistingPopup = document.querySelector('.popup-message');
   if (ExistingPopup) ExistingPopup.remove();
@@ -266,6 +270,7 @@ function ShowPopup(Message, Duration = 2000) {
   }, Duration);
 }
 
+// Copy code to clipboard
 function CopyCodeToClipboard() {
   fetch(CodeUrl)
     .then(Response => Response.ok ? Response.text() : Promise.reject())
@@ -287,6 +292,7 @@ function CopyCodeToClipboard() {
     });
 }
 
+// Event handlers
 document.getElementById('GithubIconContainer').onclick = () => {
   window.open('https://github.com/JackTheGamer385/Utility-Menu/tree/main', '_blank');
 };
@@ -299,6 +305,7 @@ CopyButton.onclick = () => {
   CopyCodeToClipboard();
 };
 
+// On page load
 window.onload = () => {
   FetchAndPopulateFeatures();
   LoadCodePreview();
